@@ -1,6 +1,7 @@
 # GBS-SBG
 
 ## Group B Streptococcus Serotyping by Genome Sequencing
+## This is forked version of [GBS_SBG](https://github.com/swainechen/GBS-SBG) serotyping that uses multiple threads to run Blastn.
 
 ## Quick Start (assuming you have BLAST+ installed and available on your path):
 ```

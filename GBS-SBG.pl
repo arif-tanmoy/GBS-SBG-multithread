@@ -19,6 +19,7 @@ Getopt::Long::Configure("pass_through");
 my $BLASTN_BIN = "";
 my $MIN_BLASTN_VERSION = "2.7.0";
 my $BLASTN_COMMAND;
+my $BLASTN_THREADS="";
 my $GITHUB_REPO = "https://github.com/swainechen/GBS-SBG";
 my $GITHUB_REF_FASTA = "https://raw.githubusercontent.com/swainechen/GBS-SBG/main/GBS-SBG.fasta";
 my $REF_FASTA_BASE = "GBS-SBG.fasta";
@@ -166,7 +167,7 @@ if ($USE_STDIN) {
   $INFILE = File::Spec->rel2abs(File::Spec->catfile($TEMPDIR, "STDIN_INPUT"));
 }
 $BLASTOUT = File::Spec->rel2abs(File::Spec->catfile($TEMPDIR, "BLAST_OUTPUT"));
-$BLASTN_COMMAND = "$BLASTN_BIN -db $REF_FASTA_FULL -query $INFILE -out $BLASTOUT -outfmt '6 qseqid sseqid pident length mismatch gapopen qlen qstart qend slen sstart send sstrand evalue bitscore'";
+$BLASTN_COMMAND = "$BLASTN_BIN -db $REF_FASTA_FULL -query $INFILE -out $BLASTOUT -outfmt '6 qseqid sseqid pident length mismatch gapopen qlen qstart qend slen sstart send sstrand evalue bitscore' -num_threads $BLASTN_THREADS";
 $DEBUG && print STDERR "[GBS-SBG INFO] Running blast: $BLASTN_COMMAND\n";
 $pid = open3($chld_in, $chld_out, $chld_err, $BLASTN_COMMAND);
 waitpid($pid, 0);
@@ -479,7 +480,7 @@ sub get_blastn {
 
 sub print_help {
   print <<__HELP__;
-Usage: $0 <assembly_fasta_file> [ -name <string> ] [ -best ] [ -blastn <path_to_blastn> ] [ -ref <GBS-SBG references> ] [ -debug ] [ -verbose ]
+Usage: $0 <assembly_fasta_file> [ -name <string> ] [ -best ] [ -blastn <path_to_blastn> ] [ -threads <number of threads for blastn> ] [ -ref <GBS-SBG references> ] [ -debug ] [ -verbose ]
 
 <assembly_fasta_file> should be a regular multi-fasta file with assembled contigs or a complete genome.
 You should specify the -name parameter, all output will be prefixed by that string. Defaults to the input filename.

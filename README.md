@@ -40,7 +40,7 @@ You should take a look at the built-in help for syntax:
 
 You should see this output:
 ```
-Usage: ./GBS-SBG.pl <assembly_fasta_file> [ -name <string> ] [ -best ] [ -blastn <path_to_blastn> ] [ -ref <GBS-SBG references> ] [ -debug ]
+Usage: ./GBS-SBG.pl <assembly_fasta_file> [ -name <string> ] [ -best ] [ -blastn <path_to_blastn> ] [ -threads <number of threads for blastn> ] [ -ref <GBS-SBG references> ] [ -debug ]
 
 <assembly_fasta_file> should be a regular multi-fasta file with assembled contigs or a complete genome.
 You should specify the -name parameter, all output will be prefixed by that string. Defaults to the input filename.
